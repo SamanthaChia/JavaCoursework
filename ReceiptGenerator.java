@@ -159,7 +159,7 @@ public class ReceiptGenerator{
         }
 
         itemDescription = itemDescription.trim().replaceAll(" +"," "); // remove inbetween extra spaces
-        
+
         StringBuilder sb = new StringBuilder(); //String Builder are to create mutable string objects.
 
         boolean convert = true;
@@ -203,7 +203,6 @@ public class ReceiptGenerator{
             }
         }
         String endDescriptionArrays = String.join(" ", arrOfDescription);
-        System.out.println(endDescriptionArrays);
         return endDescriptionArrays;
     }
     
