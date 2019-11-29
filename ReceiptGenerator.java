@@ -158,7 +158,8 @@ public class ReceiptGenerator{
             return itemDescription;
         }
 
-        itemDescription = itemDescription.trim().replaceAll(" +"," ");
+        itemDescription = itemDescription.trim().replaceAll(" +"," "); // remove inbetween extra spaces
+        
         StringBuilder sb = new StringBuilder(); //String Builder are to create mutable string objects.
 
         boolean convert = true;
@@ -260,17 +261,6 @@ public class ReceiptGenerator{
         }
 
         return i;
-    }
-
-    private static String getValuesFromUser(String itemDescriptionPrompt, String unitPricePrompt, String numberPrompt) {
-        String itemDescriptionValue = getFromUser(itemDescriptionPrompt);
-        double unitPriceValue = getDoubleFromUser(unitPricePrompt + itemDescriptionValue);
-        int numberOfUnitsValue = getIntFromUser(numberPrompt + itemDescriptionValue);
-
-        String convertUnitPriceValue = Double.toString(unitPriceValue);
-        String convertNumberOfUnitsValue = Double.toString(numberOfUnitsValue);
-        // return itemDescriptionValue ,convertUnitPriceValue,convertNumberOfUnitsValue;
-        return null;
     }
 
     private static void printReceipt() {
