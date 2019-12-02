@@ -66,6 +66,9 @@ public class ReceiptGenerator{
     private static double paid;
     private static String paymentMethod;
     private static Scanner in;
+    private static String itemDescription;
+    private static double unitPrice;
+    private static int numberOfUnits;
 
     public static void create() {
         in = new Scanner(System.in);
@@ -82,12 +85,13 @@ public class ReceiptGenerator{
         boolean keepGoing = true;
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
-            //ask user to enter information about item and charges
-            String itemDescription = getFromUser("Item or service user is being charged for");
-            //TODO client wants the item description in title case (done)
-            double unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
-            int numberOfUnits = getIntFromUser("the number of " + itemDescription);
+            // //ask user to enter information about item and charges
+            // String itemDescription = getFromUser("Item or service user is being charged for");
+            // //TODO client wants the item description in title case (done)
+            // double unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
+            // int numberOfUnits = getIntFromUser("the number of " + itemDescription);
             //TODO make above statements a method
+            method1();
 
             //update receipt information with item and charges for item
             itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
@@ -151,6 +155,12 @@ public class ReceiptGenerator{
 		if (s.length() < 2) return s.toUpperCase();
 		return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
+
+    public static void method1(){
+        itemDescription = getFromUser("Item or service user is being charged for");
+        unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
+        numberOfUnits = getIntFromUser("the number of " + itemDescription);
+    }
     
     
     private static String itemDescriptionString(String itemDescription){
@@ -205,6 +215,8 @@ public class ReceiptGenerator{
         String endDescriptionArrays = String.join(" ", arrOfDescription);
         return endDescriptionArrays;
     }
+
+
     
     private static String addItemisedCostToReceipt(String itemDescription, double unitPrice, int numberOfUnits) {
         //format: numberOfUnits x itemDescription @ £unitPrice each: £(unitPrice*NumberOfUnits)
