@@ -85,12 +85,7 @@ public class ReceiptGenerator{
         boolean keepGoing = true;
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
-            // //ask user to enter information about item and charges
-            // String itemDescription = getFromUser("Item or service user is being charged for");
-            // //TODO client wants the item description in title case (done)
-            // double unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
-            // int numberOfUnits = getIntFromUser("the number of " + itemDescription);
-            //TODO make above statements a method
+            // method for getFromUser
             method1();
 
             //update receipt information with item and charges for item
