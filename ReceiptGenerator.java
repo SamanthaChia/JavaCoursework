@@ -66,6 +66,10 @@ public class ReceiptGenerator{
     private static double paid;
     private static String paymentMethod;
     private static Scanner in;
+    private static String itemDescription;
+    private static double unitPrice;
+    private static int numberOfUnits;
+    private static boolean keepGoing;
 
     public static void create() {
         in = new Scanner(System.in);
@@ -79,27 +83,20 @@ public class ReceiptGenerator{
         numberOfItemsPurchased = 0;
         subtotal = 0;
         
-        boolean keepGoing = true;
+        keepGoing = true;
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
-            //ask user to enter information about item and charges
-            String itemDescription = getFromUser("Item or service user is being charged for");
-            //TODO client wants the item description in title case (done)
-            double unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
-            int numberOfUnits = getIntFromUser("the number of " + itemDescription);
-            //TODO make above statements a method
+
+            // method for getFromUser
+            method1(); //change Method name
 
             //update receipt information with item and charges for item
-            itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
-            subtotal += (unitPrice * numberOfUnits);
-            numberOfItemsPurchased += numberOfUnits;
+            method2(); // Change name
+            
             //TODO make above three statements a method
 
             //add more items to the receipt?
-            String more = getFromUser("another item or service? Yes/No");
-            if (more.trim().toLowerCase().startsWith("n")) {
-                keepGoing = false;
-            }
+            method3(); // Change method name
 
             //TODO make asking the user if they wish to add more items into a method
             
@@ -151,6 +148,25 @@ public class ReceiptGenerator{
 		if (s.length() < 2) return s.toUpperCase();
 		return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
+
+    private static void method1(){
+        itemDescription = getFromUser("Item or service user is being charged for");
+        unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
+        numberOfUnits = getIntFromUser("the number of " + itemDescription);
+    }
+
+    private static void method2(){
+        itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
+        subtotal += (unitPrice * numberOfUnits);
+        numberOfItemsPurchased += numberOfUnits;
+    }
+
+    private static void method3(){
+        String more = getFromUser("another item or service? Yes/No");
+            if (more.trim().toLowerCase().startsWith("n")) {
+                keepGoing = false;
+            }
+    }
     
     
     private static String itemDescriptionString(String itemDescription){
@@ -158,7 +174,8 @@ public class ReceiptGenerator{
             return itemDescription;
         }
 
-        itemDescription = itemDescription.trim().replaceAll(" +"," ");
+        itemDescription = itemDescription.trim().replaceAll(" +"," "); // remove inbetween extra spaces
+
         StringBuilder sb = new StringBuilder(); //String Builder are to create mutable string objects.
 
         boolean convert = true;
@@ -202,9 +219,10 @@ public class ReceiptGenerator{
             }
         }
         String endDescriptionArrays = String.join(" ", arrOfDescription);
-        System.out.println(endDescriptionArrays);
         return endDescriptionArrays;
     }
+
+
     
     private static String addItemisedCostToReceipt(String itemDescription, double unitPrice, int numberOfUnits) {
         //format: numberOfUnits x itemDescription @ £unitPrice each: £(unitPrice*NumberOfUnits)
@@ -260,17 +278,6 @@ public class ReceiptGenerator{
         }
 
         return i;
-    }
-
-    private static String getValuesFromUser(String itemDescriptionPrompt, String unitPricePrompt, String numberPrompt) {
-        String itemDescriptionValue = getFromUser(itemDescriptionPrompt);
-        double unitPriceValue = getDoubleFromUser(unitPricePrompt + itemDescriptionValue);
-        int numberOfUnitsValue = getIntFromUser(numberPrompt + itemDescriptionValue);
-
-        String convertUnitPriceValue = Double.toString(unitPriceValue);
-        String convertNumberOfUnitsValue = Double.toString(numberOfUnitsValue);
-        // return itemDescriptionValue ,convertUnitPriceValue,convertNumberOfUnitsValue;
-        return null;
     }
 
     private static void printReceipt() {
