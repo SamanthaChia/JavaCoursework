@@ -106,7 +106,8 @@ public class ReceiptGenerator{
         //calculate total with vat
         total = addVat(subtotal);
         
-		paid = getDoubleFromUser("amount paid as a deposit by the customer"); 
+        // paid = getDoubleFromUser("amount paid as a deposit by the customer"); 
+        method4();
 										 //TODO write a new method to get the deposit from the user. 
         								 //enforce that the method will (1) give the user the minimum and 
         								 //the maximum amount of the deposit (minimum is 20% of the total, 
@@ -166,6 +167,27 @@ public class ReceiptGenerator{
             if (more.trim().toLowerCase().startsWith("n")) {
                 keepGoing = false;
             }
+    }
+
+    private static double method4(){
+        boolean acceptableVal = false;
+        double maxVal = total;
+        double minimumVal = paid * 0.20;
+        while(!acceptableVal){    
+            paid = getDoubleFromUser("amount paid as a deposit by the customer"); 
+            if (paid < minimumVal){
+                System.out.println("Invalid value, value must be at least 20% more than the amount owed. ");
+            } 
+            else if(paid > maxVal){
+                System.out.println("minimum Value : " + minimumVal);
+                System.out.println(maxVal);
+                System.out.println("Value entered is more than the total value owed.");
+            }
+            else{
+                acceptableVal = true;
+            }
+        }
+        return paid;
     }
     
     
