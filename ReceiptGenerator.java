@@ -69,6 +69,7 @@ public class ReceiptGenerator{
     private static String itemDescription;
     private static double unitPrice;
     private static int numberOfUnits;
+    private static boolean keepGoing;
 
     public static void create() {
         in = new Scanner(System.in);
@@ -82,23 +83,20 @@ public class ReceiptGenerator{
         numberOfItemsPurchased = 0;
         subtotal = 0;
         
-        boolean keepGoing = true;
+        keepGoing = true;
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
             // method for getFromUser
-            method1();
+            method1(); //change Method name
 
             //update receipt information with item and charges for item
-            method2();
+            method2(); // Change name
             
             //TODO make above three statements a method
 
             //add more items to the receipt?
-            String more = getFromUser("another item or service? Yes/No");
-            if (more.trim().toLowerCase().startsWith("n")) {
-                keepGoing = false;
-            }
+            method3(); // Change method name
 
             //TODO make asking the user if they wish to add more items into a method
             
@@ -161,6 +159,13 @@ public class ReceiptGenerator{
         itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
         subtotal += (unitPrice * numberOfUnits);
         numberOfItemsPurchased += numberOfUnits;
+    }
+
+    private static void method3(){
+        String more = getFromUser("another item or service? Yes/No");
+            if (more.trim().toLowerCase().startsWith("n")) {
+                keepGoing = false;
+            }
     }
     
     
