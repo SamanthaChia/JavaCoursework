@@ -85,13 +85,13 @@ public class ReceiptGenerator{
         boolean keepGoing = true;
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
+
             // method for getFromUser
             method1();
 
             //update receipt information with item and charges for item
-            itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
-            subtotal += (unitPrice * numberOfUnits);
-            numberOfItemsPurchased += numberOfUnits;
+            method2();
+            
             //TODO make above three statements a method
 
             //add more items to the receipt?
@@ -151,10 +151,16 @@ public class ReceiptGenerator{
 		return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
-    public static void method1(){
+    private static void method1(){
         itemDescription = getFromUser("Item or service user is being charged for");
         unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
         numberOfUnits = getIntFromUser("the number of " + itemDescription);
+    }
+
+    private static void method2(){
+        itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
+        subtotal += (unitPrice * numberOfUnits);
+        numberOfItemsPurchased += numberOfUnits;
     }
     
     
