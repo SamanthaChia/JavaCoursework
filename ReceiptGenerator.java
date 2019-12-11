@@ -107,7 +107,6 @@ public class ReceiptGenerator{
         total = addVat(subtotal);
         
         paid = method4("amount paid as a deposit by the customer"); 
-        // method4();
 										 //TODO write a new method to get the deposit from the user. 
         								 //enforce that the method will (1) give the user the minimum and 
         								 //the maximum amount of the deposit (minimum is 20% of the total, 
@@ -190,31 +189,6 @@ public class ReceiptGenerator{
         }
         return i;
     }
-
-    private static double method4poop(String prompt){
-        boolean keepContinue = true;
-        double i,minimumVal = 0;
-        double maxVal = total;
-        while(keepContinue){    
-
-            System.out.print(("Enter " + prompt + ": "));
-            i = in.nextDouble();
-            minimumVal = i * 0.20;
-            if (paid < minimumVal){
-                System.out.println("Invalid value, value must be at least 20% more than the amount owed. ");
-            } 
-            else if(paid > maxVal){
-                System.out.println("minimum Value : " + minimumVal);
-                System.out.println(maxVal);
-                System.out.println("Value entered is more than the total value owed.");
-            }
-            else{
-                keepContinue = true;
-            }
-        }
-        return paid;
-    }
-    
     
     private static String itemDescriptionString(String itemDescription){
          if (itemDescription == null || itemDescription.isEmpty()) {
