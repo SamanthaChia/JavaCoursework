@@ -106,7 +106,8 @@ public class ReceiptGenerator{
         //calculate total with vat
         total = addVat(subtotal);
         
-		paid = getDoubleFromUser("amount paid as a deposit by the customer"); 
+        paid = method4("amount paid as a deposit by the customer"); 
+        // method4();
 										 //TODO write a new method to get the deposit from the user. 
         								 //enforce that the method will (1) give the user the minimum and 
         								 //the maximum amount of the deposit (minimum is 20% of the total, 
@@ -166,6 +167,52 @@ public class ReceiptGenerator{
             if (more.trim().toLowerCase().startsWith("n")) {
                 keepGoing = false;
             }
+    }
+
+    private static double method4(String prompt){
+        boolean keepGoing = true;
+        double minimumVal = 0;
+        double i = 0;
+        int previewMinimumVal = 0;
+        while(keepGoing){
+            i = getDoubleFromUser("amount paid as a deposit by the customer");
+            minimumVal = total * 0.20;
+            if (i < minimumVal){
+                previewMinimumVal = (int) Math.round(minimumVal);
+                System.out.println("Invalid Value. Value must be at least" + previewMinimumVal + "which is 20% your total.");
+            }
+            else if (i > total){
+                System.out.println("Invalid Value. Value must not be more than the total owed.");
+            }
+            else {
+                keepGoing = false;
+            }
+        }
+        return i;
+    }
+
+    private static double method4poop(String prompt){
+        boolean keepContinue = true;
+        double i,minimumVal = 0;
+        double maxVal = total;
+        while(keepContinue){    
+
+            System.out.print(("Enter " + prompt + ": "));
+            i = in.nextDouble();
+            minimumVal = i * 0.20;
+            if (paid < minimumVal){
+                System.out.println("Invalid value, value must be at least 20% more than the amount owed. ");
+            } 
+            else if(paid > maxVal){
+                System.out.println("minimum Value : " + minimumVal);
+                System.out.println(maxVal);
+                System.out.println("Value entered is more than the total value owed.");
+            }
+            else{
+                keepContinue = true;
+            }
+        }
+        return paid;
     }
     
     
