@@ -87,7 +87,6 @@ public class ReceiptGenerator{
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
-            method5();
 
             // method for getFromUser
             method1(); //change Method name
@@ -117,8 +116,8 @@ public class ReceiptGenerator{
         								 //and the user asked to enter another amount. The minimum deposit, 
         								 //once calculated, should be rounded to the nearest int 
         								 //(normal rounding applies), before being shown to the user.
-        
-        paymentMethod = getFromUser("deposit payment method"); //TODO validate this input. See PAYMENT_TYPES
+        method5();
+        // paymentMethod = getFromUser("deposit payment method"); //TODO validate this input. See PAYMENT_TYPES
         //all done with user input.
 
         //clean up
@@ -192,12 +191,20 @@ public class ReceiptGenerator{
         return i;
     }
 
-    private static void method5(){
-        paymentMethod = getFromUser("deposit payment method");
-        boolean keepGoing = true;
-        for(int i =0;i < PAYMENT_TYPES.length; i++){
-            
+    private static String method5(){
+        boolean validPaymentMethod = false;
+        while(!validPaymentMethod){
+            paymentMethod = getFromUser("deposit payment method").trim().replaceAll(" +"," ");
+            paymentMethod = paymentMethod.toLowerCase();
+            for(String s : PAYMENT_TYPES){
+                if(s.equals(paymentMethod)){
+                    validPaymentMethod = true;
+                } else{
+                    System.out.println("This is not a valid payment method, valid payment methods are : " + s);
+                }
+            }
         }
+        return paymentMethod;
     }
     
     private static String itemDescriptionString(String itemDescription){
