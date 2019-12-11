@@ -87,6 +87,8 @@ public class ReceiptGenerator{
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
+            method5();
+
             // method for getFromUser
             method1(); //change Method name
 
@@ -188,6 +190,14 @@ public class ReceiptGenerator{
             }
         }
         return i;
+    }
+
+    private static void method5(){
+        paymentMethod = getFromUser("deposit payment method");
+        boolean keepGoing = true;
+        for(int i =0;i < PAYMENT_TYPES.length; i++){
+            
+        }
     }
     
     private static String itemDescriptionString(String itemDescription){
