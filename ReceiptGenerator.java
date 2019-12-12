@@ -87,6 +87,7 @@ public class ReceiptGenerator{
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
+
             // method for getFromUser
             method1(); //change Method name
 
@@ -107,7 +108,6 @@ public class ReceiptGenerator{
         total = addVat(subtotal);
         
         paid = method4("amount paid as a deposit by the customer"); 
-        // method4();
 										 //TODO write a new method to get the deposit from the user. 
         								 //enforce that the method will (1) give the user the minimum and 
         								 //the maximum amount of the deposit (minimum is 20% of the total, 
@@ -116,8 +116,8 @@ public class ReceiptGenerator{
         								 //and the user asked to enter another amount. The minimum deposit, 
         								 //once calculated, should be rounded to the nearest int 
         								 //(normal rounding applies), before being shown to the user.
-        
-        paymentMethod = getFromUser("deposit payment method"); //TODO validate this input. See PAYMENT_TYPES
+        method5();
+        // paymentMethod = getFromUser("deposit payment method"); //TODO validate this input. See PAYMENT_TYPES
         //all done with user input.
 
         //clean up
@@ -191,30 +191,35 @@ public class ReceiptGenerator{
         return i;
     }
 
-    private static double method4poop(String prompt){
-        boolean keepContinue = true;
-        double i,minimumVal = 0;
-        double maxVal = total;
-        while(keepContinue){    
-
-            System.out.print(("Enter " + prompt + ": "));
-            i = in.nextDouble();
-            minimumVal = i * 0.20;
-            if (paid < minimumVal){
-                System.out.println("Invalid value, value must be at least 20% more than the amount owed. ");
+    private static String method5(){
+        boolean validPaymentMethod; //validate payment method.
+        boolean continueWithLoop = true;
+        while(continueWithLoop){
+            validPaymentMethod = method6();
+            if(!validPaymentMethod){
+                System.out.println("This is not a valid payment method, valid payment methods are : ");
+                for(String paymentType: PAYMENT_TYPES){
+                    System.out.println(paymentType);
+                }
             } 
-            else if(paid > maxVal){
-                System.out.println("minimum Value : " + minimumVal);
-                System.out.println(maxVal);
-                System.out.println("Value entered is more than the total value owed.");
-            }
             else{
-                keepContinue = true;
+                continueWithLoop = false;
             }
         }
-        return paid;
+        return paymentMethod;
     }
-    
+
+    private static boolean method6(){ //validate payment method
+        boolean validPaymentMethod = false;
+        paymentMethod = getFromUser("deposit payment method").trim().replaceAll(" +"," ");
+        paymentMethod = paymentMethod.toLowerCase();
+        for(String s : PAYMENT_TYPES){
+            if(s.equals(paymentMethod)){
+                validPaymentMethod = true;
+            } 
+        }
+        return validPaymentMethod;
+    }
     
     private static String itemDescriptionString(String itemDescription){
          if (itemDescription == null || itemDescription.isEmpty()) {
