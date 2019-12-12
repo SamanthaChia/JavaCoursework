@@ -192,19 +192,33 @@ public class ReceiptGenerator{
     }
 
     private static String method5(){
-        boolean validPaymentMethod = false;
-        while(!validPaymentMethod){
-            paymentMethod = getFromUser("deposit payment method").trim().replaceAll(" +"," ");
-            paymentMethod = paymentMethod.toLowerCase();
-            for(String s : PAYMENT_TYPES){
-                if(s.equals(paymentMethod)){
-                    validPaymentMethod = true;
-                } else{
-                    System.out.println("This is not a valid payment method, valid payment methods are : " + s);
+        boolean validPaymentMethod; //validate payment method.
+        boolean continueWithLoop = true;
+        while(continueWithLoop){
+            validPaymentMethod = method6();
+            if(!validPaymentMethod){
+                System.out.println("This is not a valid payment method, valid payment methods are : ");
+                for(String paymentType: PAYMENT_TYPES){
+                    System.out.println(paymentType);
                 }
+            } 
+            else{
+                continueWithLoop = false;
             }
         }
         return paymentMethod;
+    }
+
+    private static boolean method6(){ //validate payment method
+        boolean validPaymentMethod = false;
+        paymentMethod = getFromUser("deposit payment method").trim().replaceAll(" +"," ");
+        paymentMethod = paymentMethod.toLowerCase();
+        for(String s : PAYMENT_TYPES){
+            if(s.equals(paymentMethod)){
+                validPaymentMethod = true;
+            } 
+        }
+        return validPaymentMethod;
     }
     
     private static String itemDescriptionString(String itemDescription){
