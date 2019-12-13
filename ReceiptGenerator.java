@@ -192,9 +192,11 @@ public class ReceiptGenerator{
             validPaymentMethod = method6();
             if(!validPaymentMethod){
                 System.out.println("Payment type not recognised");
+                System.out.print("Please enter one of the following ");
                 for(String paymentType: PAYMENT_TYPES){
-                    System.out.println(paymentType);
+                    System.out.print("," +paymentType);
                 }
+                System.out.println("");
             } 
             else{
                 continueWithLoop = false;
