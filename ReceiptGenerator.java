@@ -87,18 +87,11 @@ public class ReceiptGenerator{
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
-
-            // method for getFromUser
-            method1(); //change Method name
-
-            //update receipt information with item and charges for item
-            method2(); // Change name
-            
+            retrieveItemNamePriceQuantity(); // Method to retrieve Item/Service Name, Price and Unit Number.
+            calculateTotal(); // Method to calculate the total to be printed to the receipt.
             //TODO make above three statements a method
 
-            //add more items to the receipt?
-            method3(); // Change method name
-
+            continueAddingService();
             //TODO make asking the user if they wish to add more items into a method
             
         }//end of while loop
@@ -150,19 +143,20 @@ public class ReceiptGenerator{
 		return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
-    private static void method1(){
+    
+    private static void retrieveItemNamePriceQuantity(){
         itemDescription = getFromUser("Item or service user is being charged for");
         unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
         numberOfUnits = getIntFromUser("the number of " + itemDescription);
     }
 
-    private static void method2(){
+    private static void calculateTotal(){
         itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
         subtotal += (unitPrice * numberOfUnits);
         numberOfItemsPurchased += numberOfUnits;
     }
 
-    private static void method3(){
+    private static void continueAddingService(){
         String more = getFromUser("another item or service? Yes/No");
             if (more.trim().toLowerCase().startsWith("n")) {
                 keepGoing = false;
@@ -179,7 +173,7 @@ public class ReceiptGenerator{
             minimumVal = total * 0.20;
             if (i < minimumVal){
                 previewMinimumVal = (int) Math.round(minimumVal);
-                System.out.println("Invalid Value. Value must be at least" + previewMinimumVal + "which is 20% your total.");
+                System.out.println("Invalid Value. Value must be at least " + previewMinimumVal + " which is 20% your total.");
             }
             else if (i > total){
                 System.out.println("Invalid Value. Value must not be more than the total owed.");
