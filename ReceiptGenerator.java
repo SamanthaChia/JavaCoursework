@@ -169,14 +169,14 @@ public class ReceiptGenerator{
         double i = 0;
         int previewMinimumVal = 0;
         while(keepGoing){
-            i = getDoubleFromUser("amount paid as a deposit by the customer");
             minimumVal = total * 0.20;
+            previewMinimumVal = (int) Math.round(minimumVal);
+            i = getDoubleFromUser("amount paid as a deposit by the customer (must be at least " + previewMinimumVal + " and no more than "+ total);
             if (i < minimumVal){
-                previewMinimumVal = (int) Math.round(minimumVal);
-                System.out.println("Invalid Value. Value must be at least " + previewMinimumVal + " which is 20% your total.");
+                System.out.println("Deposit is too small");
             }
             else if (i > total){
-                System.out.println("Invalid Value. Value must not be more than the total owed.");
+                System.out.println("Deposit is too large");
             }
             else {
                 keepGoing = false;
@@ -191,7 +191,7 @@ public class ReceiptGenerator{
         while(continueWithLoop){
             validPaymentMethod = method6();
             if(!validPaymentMethod){
-                System.out.println("This is not a valid payment method, valid payment methods are : ");
+                System.out.println("Payment type not recognised");
                 for(String paymentType: PAYMENT_TYPES){
                     System.out.println(paymentType);
                 }
