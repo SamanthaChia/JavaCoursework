@@ -87,18 +87,11 @@ public class ReceiptGenerator{
         //loop so that the user can enter as many items as they need to
         while (keepGoing) {
 
-
-            // method for getFromUser
-            method1(); //change Method name
-
-            //update receipt information with item and charges for item
-            method2(); // Change name
-            
+            retrieveItemNamePriceQuantity(); // Method to retrieve Item/Service Name, Price and Unit Number.
+            calculateTotal(); // Method to calculate the total to be printed to the receipt.
             //TODO make above three statements a method
 
-            //add more items to the receipt?
-            method3(); // Change method name
-
+            continueAddingService();
             //TODO make asking the user if they wish to add more items into a method
             
         }//end of while loop
@@ -107,7 +100,7 @@ public class ReceiptGenerator{
         //calculate total with vat
         total = addVat(subtotal);
         
-        paid = method4("amount paid as a deposit by the customer"); 
+        paid = validateDepositInput("amount paid as a deposit by the customer"); 
 										 //TODO write a new method to get the deposit from the user. 
         								 //enforce that the method will (1) give the user the minimum and 
         								 //the maximum amount of the deposit (minimum is 20% of the total, 
@@ -116,9 +109,9 @@ public class ReceiptGenerator{
         								 //and the user asked to enter another amount. The minimum deposit, 
         								 //once calculated, should be rounded to the nearest int 
         								 //(normal rounding applies), before being shown to the user.
-        method5();
+        
+        paymentMethod = getPaymentMethod();
         // paymentMethod = getFromUser("deposit payment method"); //TODO validate this input. See PAYMENT_TYPES
-        //all done with user input.
 
         //clean up
         in.close();
@@ -150,39 +143,40 @@ public class ReceiptGenerator{
 		return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
-    private static void method1(){
+    
+    private static void retrieveItemNamePriceQuantity(){
         itemDescription = getFromUser("Item or service user is being charged for");
         unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
         numberOfUnits = getIntFromUser("the number of " + itemDescription);
     }
 
-    private static void method2(){
+    private static void calculateTotal(){
         itemisedCosts += addItemisedCostToReceipt(itemDescription, unitPrice, numberOfUnits);
         subtotal += (unitPrice * numberOfUnits);
         numberOfItemsPurchased += numberOfUnits;
     }
 
-    private static void method3(){
+    private static void continueAddingService(){
         String more = getFromUser("another item or service? Yes/No");
             if (more.trim().toLowerCase().startsWith("n")) {
                 keepGoing = false;
             }
     }
 
-    private static double method4(String prompt){
+    private static double validateDepositInput(String prompt){
         boolean keepGoing = true;
         double minimumVal = 0;
         double i = 0;
         int previewMinimumVal = 0;
         while(keepGoing){
-            i = getDoubleFromUser("amount paid as a deposit by the customer");
             minimumVal = total * 0.20;
+            previewMinimumVal = (int) Math.round(minimumVal);
+            i = getDoubleFromUser("amount paid as a deposit by the customer (must be at least " + previewMinimumVal + " and no more than "+ total);
             if (i < minimumVal){
-                previewMinimumVal = (int) Math.round(minimumVal);
-                System.out.println("Invalid Value. Value must be at least" + previewMinimumVal + "which is 20% your total.");
+                System.out.println("Deposit is too small");
             }
             else if (i > total){
-                System.out.println("Invalid Value. Value must not be more than the total owed.");
+                System.out.println("Deposit is too large");
             }
             else {
                 keepGoing = false;
@@ -191,16 +185,18 @@ public class ReceiptGenerator{
         return i;
     }
 
-    private static String method5(){
-        boolean validPaymentMethod; //validate payment method.
+    private static String getPaymentMethod(){
+        boolean validPaymentMethod;
         boolean continueWithLoop = true;
         while(continueWithLoop){
-            validPaymentMethod = method6();
+            validPaymentMethod = validatePaymentMethod();
             if(!validPaymentMethod){
-                System.out.println("This is not a valid payment method, valid payment methods are : ");
+                System.out.println("Payment type not recognised");
+                System.out.print("Please enter one of the following ");
                 for(String paymentType: PAYMENT_TYPES){
-                    System.out.println(paymentType);
+                    System.out.print("," +paymentType);
                 }
+                System.out.println("");
             } 
             else{
                 continueWithLoop = false;
@@ -209,7 +205,7 @@ public class ReceiptGenerator{
         return paymentMethod;
     }
 
-    private static boolean method6(){ //validate payment method
+    private static boolean validatePaymentMethod(){ 
         boolean validPaymentMethod = false;
         paymentMethod = getFromUser("deposit payment method").trim().replaceAll(" +"," ");
         paymentMethod = paymentMethod.toLowerCase();
@@ -221,35 +217,36 @@ public class ReceiptGenerator{
         return validPaymentMethod;
     }
     
-    private static String itemDescriptionString(String itemDescription){
+    private static String capitalizeFirstLetter(String itemDescription){ //capitalize first letter of every word.
          if (itemDescription == null || itemDescription.isEmpty()) {
             return itemDescription;
         }
-
-        itemDescription = itemDescription.trim().replaceAll(" +"," "); // remove inbetween extra spaces
-
-        StringBuilder sb = new StringBuilder(); //String Builder are to create mutable string objects.
-
-        boolean convert = true;
+        itemDescription = itemDescription.trim().replaceAll(" +"," "); // remove in between extra space
+        StringBuilder sb = new StringBuilder(); //String Builders are to create mutable string objects.
+        boolean convertCharacter = true;
         for (char letter : itemDescription.toCharArray()) // loop through the itemDescription
         {
-            if (Character.isSpaceChar(letter)) //  check if it's a space
+            if (Character.isSpaceChar(letter)) //  check if it's a space character
             {
-                convert = true;
+                convertCharacter = true;
             }
-            else if (convert) // check if convert should be changed to a Title Case
+            else if (convertCharacter) // check if convertCharacter should be converted to a Title Case
             {
                 letter = Character.toTitleCase(letter);
-                convert = false;
+                convertCharacter = false;
             } 
             else 
             {
-                letter = Character.toLowerCase(letter); // change every other character to a lower case
+                letter = Character.toLowerCase(letter); // change other characters to a lower case
             }
             sb.append(letter);
         }
         String upperCaseDescription = sb.toString();
-        String[] arrOfDescription = upperCaseDescription.split(" ");
+        return upperCaseDescription;
+    }
+
+    private static String removeCapsFromArticles(String itemDescription){ // remove Uppercase from a ,an, the, and, of, with
+        String[] arrOfDescription = itemDescription.split(" ");
         for( int i = 0;i < arrOfDescription.length;i++){
             if(arrOfDescription[i].equals("A")){
                 arrOfDescription[i] = arrOfDescription[i].toLowerCase();
@@ -278,7 +275,8 @@ public class ReceiptGenerator{
     
     private static String addItemisedCostToReceipt(String itemDescription, double unitPrice, int numberOfUnits) {
         //format: numberOfUnits x itemDescription @ £unitPrice each: £(unitPrice*NumberOfUnits)
-        itemDescription = itemDescriptionString(itemDescription);
+        itemDescription = capitalizeFirstLetter(itemDescription);
+        itemDescription = removeCapsFromArticles(itemDescription);
         return String.format("%d x %s @ £%.2f each\t\t£%.2f%n", numberOfUnits, itemDescription, unitPrice, unitPrice * numberOfUnits);
     }
 
