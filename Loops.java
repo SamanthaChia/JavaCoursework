@@ -1,3 +1,5 @@
+// Name: Samantha Chia Eileen 
+// Student Number: 190428594
 import java.util.Random;
 
 public class Loops {
