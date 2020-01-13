@@ -148,6 +148,8 @@ public class ReceiptGenerator{
     
     private static void retrieveItemNamePriceQuantity(){
         itemDescription = getFromUser("Item or service user is being charged for");
+        itemDescription = capitalizeFirstLetter(itemDescription);
+        itemDescription = removeCapsFromArticles(itemDescription);
         unitPrice = getDoubleFromUser("the unit price (without VAT) of " + itemDescription);
         numberOfUnits = getIntFromUser("the number of " + itemDescription);
     }
