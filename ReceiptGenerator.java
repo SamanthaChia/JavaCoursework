@@ -1,5 +1,19 @@
 // Name: Samantha Chia Eileen 
 // Student Number: 190428594
+
+//Data entry used to test
+// 1          - King cross
+// Samantha Chia   - name
+// 123         - price
+// 4         - units
+// n          - no more item or service
+//            - Should print least 118.0 and no more than 590.4 for the min and max amount to enter
+// 40         - deposit, should reject
+// 800        - deposit, should reject 
+// 300        - deposit, should accept
+// testing method        - payment method, should reject
+//  credit card      - payment method - with one leading and one trailing space, should accept
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Scanner;
