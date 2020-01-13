@@ -279,8 +279,6 @@ public class ReceiptGenerator{
     
     private static String addItemisedCostToReceipt(String itemDescription, double unitPrice, int numberOfUnits) {
         //format: numberOfUnits x itemDescription @ £unitPrice each: £(unitPrice*NumberOfUnits)
-        itemDescription = capitalizeFirstLetter(itemDescription);
-        itemDescription = removeCapsFromArticles(itemDescription);
         return String.format("%d x %s @ £%.2f each\t\t£%.2f%n", numberOfUnits, itemDescription, unitPrice, unitPrice * numberOfUnits);
     }
 
