@@ -12,7 +12,78 @@
 // 800        - deposit, should reject 
 // 300        - deposit, should accept
 // testing method        - payment method, should reject
-//  credit card      - payment method - with one leading and one trailing space, should accept
+//  credit card      - payment method
+
+// Display
+// SHOP LOCATIONS:
+// 1) King's Cross
+// 2) Victoria
+// 3) Waterloo
+// 4) Euston
+// 5) Liverpool Street
+// 6) London Bridge
+// 7) Paddington
+// 8) Marylebone
+// Enter The number that corresponds to your shop: 1
+// Enter your first name: Samantha Chia
+// Enter Item or service user is being charged for: This item is for a and an the of with this
+// Enter the unit price (without VAT) of This Item Is For a and an the of with This: 123
+// Enter the number of This Item Is For a and an the of with This: 4
+// Enter another item or service? Yes/No: n
+// Enter amount paid as a deposit by the customer (must be at least 118 and no more than 590.4: 40
+// Deposit is too small
+// Enter amount paid as a deposit by the customer (must be at least 118 and no more than 590.4: 800
+// Deposit is too large
+// Enter amount paid as a deposit by the customer (must be at least 118 and no more than 590.4: 300
+// Enter deposit payment method: testing method
+// Payment type not recognised
+// Please enter one of the following ,cash,credit card,debit card,bitcoin
+// Enter deposit payment method:    cash
+
+// ****************************************
+// * FixAllPhones - repairs you can trust *
+// ****************************************
+
+// Receipt - 13/JAN/2020::0756+0000(GMT)
+
+// FixAll - King's Cross
+
+// VAT No: 123456789
+
+// Served by: Samantha chia
+
+// ---------------------------------------------
+// Your order:
+
+// 4 x This Item Is For a and an the of with This @ £123.00 each           £492.00
+
+
+// Subtotal                                £492.00
+// Tax (VAT @ 20%)                         £98.40
+
+// TOTAL : 4 items                         £590.40
+
+// PAID (cash) :                   £300.00
+
+// TO PAY :                                £290.40
+
+// ---------------------------------------------
+
+
+// Exchange and returns policy - http://www.FixAllPhones.co.uk/returns
+
+// All repairs guaranteed for 18 months
+// Repair T&Cs - http://www.FixAllPhones.co.uk/terms
+
+
+// Rate our Service
+// https//uk.trustpilot.com/review/www.FixAllPhones.co.uk
+
+
+// Get 20% off your order when you refer a friend - see our web page for details
+// http://www.FixAllPhones.co.uk/phonefriend
+
+// Follow us on FaceBook and Twitter
 
 import java.util.Arrays;
 import java.util.Calendar;
